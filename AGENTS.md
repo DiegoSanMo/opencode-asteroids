@@ -16,7 +16,7 @@ There is no verification command. After edits, reload the page (or reopen the fi
 
 ## Structure
 
-- `game.js` — everything: input, entities (`Ship`, `Asteroid`, `Bullet`, `Particle`), game loop, HUD, overlays.
+- `game.js` — everything: input, entities (`Ship`, `Asteroid`, `Bullet`, `Particle`, `PowerUp`, `Enemy`, `EnemyBullet`), game loop, HUD, overlays.
 - `index.html` — fixed `<canvas id="canvas" width="800" height="600">` plus inline CSS.
 - `favicon.svg` — static asset.
 
@@ -24,7 +24,7 @@ There is no verification command. After edits, reload the page (or reopen the fi
 
 - **Canvas size is duplicated**: `800`/`600` live in `index.html` and again as `W`/`H` at the top of `game.js`. Change both together.
 - **Classic script, not a module**: `game.js` is loaded via `<script src="game.js">`; no `import`/`export`. Everything is global under `'use strict'`.
-- **Game state is module-level globals** (`ship`, `bullets`, `asteroids`, `particles`, `score`, `lives`, `level`, `state`) initialized by `initGame()` at the bottom of the file. Restart/reset logic lives there and in `nextLevel()`.
+- **Game state is module-level globals** (`ship`, `bullets`, `asteroids`, `particles`, `powerUps`, `enemies`, `enemyBullets`, `score`, `lives`, `level`, `state`) initialized by `initGame()` at the bottom of the file. Restart/reset logic lives there and in `nextLevel()`.
 - **Collections are reassigned, not mutated**: `bullets = bullets.filter(...)`, same for `particles`/`asteroids`. Don't hold stale references across updates.
 - **One-shot input**: `pressed(code)` reads and clears `justPressed[code]`. Call it at most once per frame per key — calling it again returns `false`.
 - **Toroidal space**: movement wraps with `wrap(v, max)`, but collision checks use plain `dist()` with no wrap-aware distance, so collisions across screen edges do not register. Keep this in mind if you add entity types or "fix" collisions.
@@ -39,4 +39,4 @@ There is no verification command. After edits, reload the page (or reopen the fi
 
 ## Docs caveat
 
-`README.md` documents the speed power-up and the "estrella fugaz" asteroid; both are implemented in `game.js` (see `PowerUp` and the `fugaz` flag on `Asteroid`). Keep the README in sync with the code.
+`README.md` documents the speed/shield power-ups, the enemy UFO, the triple shot, the skins, and the "estrella fugaz" asteroid; all are implemented in `game.js` (see `PowerUp`, `Enemy`, `Ship`, `SKINS`, and the `fugaz` flag on `Asteroid`). Keep the README in sync with the code.

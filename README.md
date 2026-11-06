@@ -58,6 +58,8 @@ Las skins son puramente estéticas (no cambian el radio de colisión) y la últi
 - 3 vidas con invencibilidad temporal al reaparecer (parpadeo)
 - Asteroides se parten en fragmentos más pequeños al ser destruidos
 - Partículas de explosión al destruir asteroides
+- **OVNI enemigo**: aparece periódicamente, se desplaza por la pantalla y dispara proyectiles dirigidos hacia la nave. Al destruirlo otorga 150 puntos y suelta un escudo.
 - Power-up de **velocidad**: al recogerlo, la propulsión se duplica durante 5 segundos (indicador con cuenta atrás en el HUD). Aparece al destruir asteroides y desaparece si no se recoge.
+- Power-up de **escudo**: protege a la nave de los proyectiles enemigos durante 8 segundos (indicador con cuenta atrás en el HUD). Absorbe un impacto y se rompe; no protege de colisiones con asteroides ni con el OVNI. Aparece al destruir asteroides y siempre al destruir un OVNI.
 - **Estrella fugaz**: asteroide dorado con estela que se mueve mucho más rápido. Se desvanece solo a los pocos segundos (parpadea antes de desaparecer). Al destruirlo da el triple de puntos, no se fragmenta y suelta power-ups con más frecuencia.
 - **Triple shot automático**: cada 5 segundos la nave dispara sola una ráfaga de 3 balas alineadas en línea recta. Es independiente del disparo manual con `Espacio`, que sigue funcionando normalmente.
