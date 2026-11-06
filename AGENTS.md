@@ -38,4 +38,4 @@ There is no verification command. After edits, reload the page (or reopen the fi
 
 ## Docs caveat
 
-`README.md` claims power-ups and a "estrella fugaz" asteroid type — these are **not implemented** in `game.js`. Treat the code as the source of truth and don't assume those features exist.
+`README.md` documents the speed power-up and the "estrella fugaz" asteroid; both are implemented in `game.js` (see `PowerUp` and the `fugaz` flag on `Asteroid`). Keep the README in sync with the code.
