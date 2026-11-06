@@ -171,6 +171,10 @@ class Asteroid {
 }
 
 // ── Ship ──────────────────────────────────────────────────────────────────────
+const TRIPLE_INTERVAL = 5;    // segundos entre ráfagas automáticas
+const TRIPLE_BURST    = 3;    // balas por ráfaga
+const TRIPLE_GAP      = 0.08; // segundos entre balas de la ráfaga
+
 class Ship {
   constructor() { this.reset(); }
 
@@ -185,6 +189,10 @@ class Ship {
     this.invincible    = 3;
     this.shootCooldown = 0;
     this.speedBoost    = 0;
+    this.tripleTimer   = TRIPLE_INTERVAL;
+    this.burstShots    = 0;
+    this.burstDelay    = 0;
+    this.burstAngle    = this.angle;
     this.dead          = false;
   }
 
@@ -193,6 +201,23 @@ class Ship {
     if (this.invincible    > 0) this.invincible    -= dt;
     if (this.shootCooldown > 0) this.shootCooldown -= dt;
     if (this.speedBoost    > 0) this.speedBoost    -= dt;
+
+    // Ráfaga automática de 3 balas cada TRIPLE_INTERVAL segundos
+    this.tripleTimer -= dt;
+    if (this.tripleTimer <= 0) {
+      this.tripleTimer = TRIPLE_INTERVAL;
+      this.burstShots  = TRIPLE_BURST;
+      this.burstDelay  = 0;
+      this.burstAngle  = this.angle;   // misma dirección para las 3 balas
+    }
+    if (this.burstShots > 0) {
+      this.burstDelay -= dt;
+      if (this.burstDelay <= 0) {
+        bullets.push(this.spawnBullet(this.burstAngle));
+        this.burstShots--;
+        this.burstDelay = TRIPLE_GAP;
+      }
+    }
 
     const ROT   = 3.5;   // rad/s
     const THRUST = 260 * (this.speedBoost > 0 ? BOOST_FACTOR : 1);  // px/s²
@@ -213,13 +238,17 @@ class Ship {
     this.y = wrap(this.y + this.vy * dt, H);
   }
 
+  spawnBullet(angle = this.angle) {
+    const NOSE = 21;
+    const ox = this.x + Math.cos(angle) * NOSE;
+    const oy = this.y + Math.sin(angle) * NOSE;
+    return new Bullet(ox, oy, angle);
+  }
+
   tryShoot() {
     if (this.shootCooldown > 0 || this.dead) return [];
     this.shootCooldown = 0.2;
-    const NOSE = 21;
-    const ox = this.x + Math.cos(this.angle) * NOSE;
-    const oy = this.y + Math.sin(this.angle) * NOSE;
-    return [new Bullet(ox, oy, this.angle)];
+    return [this.spawnBullet()];
   }
 
   draw() {
