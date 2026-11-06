@@ -24,11 +24,25 @@ Luego visita `http://localhost:3000`.
 
 ## Controles
 
-| Tecla     | Acción     |
-| --------- | ---------- |
-| `←` `→`   | Rotar nave |
-| `↑`       | Propulsar  |
-| `Espacio` | Disparar   |
+| Tecla     | Acción       |
+| --------- | ------------ |
+| `←` `→`   | Rotar nave   |
+| `↑`       | Propulsar    |
+| `Espacio` | Disparar     |
+| `S` / `C` | Cambiar skin |
+
+## Skins
+
+La apariencia de la nave se puede cambiar en cualquier momento con `S` o `C`:
+
+| Skin     | Estilo                             |
+| -------- | ---------------------------------- |
+| Clásica  | Silueta original blanca            |
+| Neón     | Dardo verde con brillo             |
+| Fuego    | Ala ancha naranja/ámbar            |
+| Fantasma | Interceptor violeta con brillo     |
+
+Las skins son puramente estéticas (no cambian el radio de colisión) y la última elegida se guarda en `localStorage`, por lo que se mantiene al recargar la página.
 
 ## Puntuación
 
