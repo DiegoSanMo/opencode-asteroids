@@ -30,6 +30,7 @@ There is no verification command. After edits, reload the page (or reopen the fi
 - **Toroidal space**: movement wraps with `wrap(v, max)`, but collision checks use plain `dist()` with no wrap-aware distance, so collisions across screen edges do not register. Keep this in mind if you add entity types or "fix" collisions.
 - **Frame timing**: `dt` is seconds and clamped to `0.05` in `loop()`; all speeds are per-second. Use `dt` for new motion, never assume a fixed frame rate.
 - **Rendering state**: `ctx` is reused directly. Pair `ctx.save()`/`ctx.restore()` around translate/rotate blocks (as existing `draw()` methods do) so HUD text and fill styles don't leak.
+- **Skins**: `SKINS` (before `class Ship`) holds each silhouette and palette; `currentSkin` is the active index, persisted in `localStorage` under `asteroids.skin`. Appearance is purely cosmetic — collision `radius` stays 12. Per-skin `nose`/`rear`/`flameSpread` drive bullet origin and thruster flame, so any new shape must set them. `drawShipShape()` is shared by the ship and the life icons.
 
 ## Conventions
 
