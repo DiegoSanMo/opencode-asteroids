@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: read
+      contents: write  # <-- Este es el cambio clave para permitir que el bot edite o cree cambios
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
